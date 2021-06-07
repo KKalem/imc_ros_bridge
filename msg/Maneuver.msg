@@ -46,4 +46,16 @@ uint8 syringe2
 # 473 COVER_AREA that are not in GOTO
 PolygonVertex[] polygon
 
+# 475 COMPASS_CALIBRATION extras
+# vehicle dependent
+uint8 DIRECTION_VDEP = 0
+uint8 DIRECTION_CLOCKW = 1
+uint8 DIRECTION_CCLOCKW = 2
+# into the wind/current
+uint8 DIRECTION_IWINDCURR = 3
+
+float32 amplitude
+uint16 duration
+float32 radius
+uint8 direction
 

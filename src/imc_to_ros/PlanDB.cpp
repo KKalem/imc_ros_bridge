@@ -30,6 +30,7 @@
 #include <IMC/Spec/Sample.hpp>
 #include <IMC/Spec/PolygonVertex.hpp>
 #include <IMC/Spec/CoverArea.hpp>
+#include <IMC/Spec/CompassCalibration.hpp>
 
 namespace imc_to_ros {
 
@@ -187,6 +188,28 @@ bool convert(const IMC::PlanDB& imc_msg, imc_ros_bridge::PlanDB& ros_msg)
 							ros_pv.lon = imc_pv->lon;
 							plan_maneuver.maneuver.polygon.push_back(ros_pv);
 						}
+
+					}
+					// 475==CompassCalibration
+					else if(man_id==475){
+						IMC::CompassCalibration* comcal = (IMC::CompassCalibration*) pm_data.get();
+						plan_maneuver.maneuver.maneuver_name = "compass_calibration";
+						plan_maneuver.maneuver.maneuver_imc_id = man_id;
+
+						plan_maneuver.maneuver.lat = comcal->lat;
+						plan_maneuver.maneuver.lon = comcal->lon;
+						plan_maneuver.maneuver.z = comcal->z;
+						plan_maneuver.maneuver.z_units = comcal->z_units;
+						plan_maneuver.maneuver.speed = comcal->speed;
+						plan_maneuver.maneuver.speed_units = comcal->speed_units;
+
+						// compass calibs-specific things
+						plan_maneuver.maneuver.pitch = comcal->pitch;
+						plan_maneuver.maneuver.amplitude = comcal->amplitude;
+						plan_maneuver.maneuver.duration = comcal->duration;
+						plan_maneuver.maneuver.radius = comcal->radius;
+						plan_maneuver.maneuver.direction = comcal->direction;
+
 
 					}
 					else{
